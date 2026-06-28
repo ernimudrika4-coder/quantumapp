@@ -1,0 +1,3 @@
+Contact: mailto:security@quantumsignal.app
+Preferred-Languages: id, en
+Policy: https://your-frontend-domain.com/#/

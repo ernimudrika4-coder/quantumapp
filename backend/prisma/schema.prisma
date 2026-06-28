@@ -1,0 +1,145 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id            String             @id @default(cuid())
+  email         String             @unique
+  passwordHash  String
+  name          String
+  plan          String             @default("free")
+  watchlists    Watchlist[]
+  follows       UserSignalFollow[]
+  notifications Notification[]
+  devices       PushSubscription[]
+  createdAt     DateTime           @default(now())
+  updatedAt     DateTime           @updatedAt
+}
+
+model Watchlist {
+  id        String   @id @default(cuid())
+  userId    String
+  symbol    String
+  sortOrder Int      @default(0)
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+
+  @@unique([userId, symbol])
+  @@index([userId])
+}
+
+model EconomicEvent {
+  id         String   @id @default(cuid())
+  providerId String   @unique
+  title      String
+  country    String
+  impact     String
+  category   String
+  forecast   String?
+  previous   String?
+  actual     String?
+  eventTime  DateTime
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+}
+
+model MarketSnapshot {
+  id          String   @id @default(cuid())
+  symbol      String
+  price       Float
+  changePct   Float
+  open        Float
+  high        Float
+  low         Float
+  volume      Float?
+  source      String
+  snapshotAt  DateTime @default(now())
+}
+
+model Candle {
+  id         String   @id @default(cuid())
+  symbol     String
+  timeframe  String
+  open       Float
+  high       Float
+  low        Float
+  close      Float
+  volume     Float?
+  candleTime DateTime
+}
+
+model Signal {
+  id               String             @id @default(cuid())
+  symbol           String
+  timeframeTrigger String
+  timeframeBias    String
+  direction        String
+  entry            Float
+  tp1              Float
+  tp2              Float
+  tp3              Float
+  sl               Float
+  confidence       Float
+  trendScore       Float
+  momentumScore    Float
+  structureScore   Float
+  volatilityScore  Float
+  eventRiskScore   Float
+  mtfScore         Float
+  totalConfluence  Float
+  reason           Json
+  status           String             @default("ACTIVE")
+  origin           String             @default("engine")
+  engineKey        String?            @unique
+  createdAt        DateTime           @default(now())
+  expiresAt        DateTime?
+  follows          UserSignalFollow[]
+
+  @@index([symbol])
+  @@index([origin, status])
+}
+
+model UserSignalFollow {
+  id         String    @id @default(cuid())
+  userId     String
+  signalId   String
+  status     String
+  entryPrice Float
+  closePrice Float?
+  pnl        Float?
+  pnlPct     Float?
+  followedAt DateTime  @default(now())
+  closedAt   DateTime?
+  user       User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  signal     Signal    @relation(fields: [signalId], references: [id], onDelete: Cascade)
+}
+
+model Notification {
+  id        String   @id @default(cuid())
+  userId    String
+  type      String
+  title     String
+  body      String
+  dataJson  Json?
+  readAt    DateTime?
+  createdAt DateTime @default(now())
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model PushSubscription {
+  id         String   @id @default(cuid())
+  userId     String
+  platform   String
+  endpoint   String   @unique
+  p256dh     String?
+  auth       String?
+  fcmToken   String?
+  createdAt  DateTime @default(now())
+  lastSeenAt DateTime @default(now())
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}

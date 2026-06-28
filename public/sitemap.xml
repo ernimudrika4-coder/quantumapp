@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url><loc>https://your-frontend-domain.com/#/</loc></url>
+  <url><loc>https://your-frontend-domain.com/#/app</loc></url>
+  <url><loc>https://your-frontend-domain.com/#/app/signals</loc></url>
+  <url><loc>https://your-frontend-domain.com/#/app/markets</loc></url>
+  <url><loc>https://your-frontend-domain.com/#/app/news</loc></url>
+  <url><loc>https://your-frontend-domain.com/#/app/profile</loc></url>
+</urlset>

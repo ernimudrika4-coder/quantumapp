@@ -1,0 +1,20 @@
+name: backend-ci
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+
+jobs:
+  build-backend:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+      - run: npm ci
+      - run: cp backend/.env.example backend/.env
+      - run: npx prisma generate --schema=backend/prisma/schema.prisma
+      - run: npx tsc -p backend/tsconfig.json --noEmit

@@ -1,0 +1,29 @@
+services:
+  - type: web
+    name: quantum-signal-api
+    env: docker
+    dockerfilePath: backend/Dockerfile
+    healthCheckPath: /api/health/ready
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 4000
+      - key: APP_URL
+        value: https://your-frontend-domain.com
+      - key: JWT_SECRET
+        sync: false
+      - key: DATABASE_URL
+        sync: false
+      - key: REDIS_URL
+        sync: false
+      - key: TWELVE_DATA_API_KEY
+        sync: false
+      - key: FOREX_FACTORY_URL
+        value: https://nfs.faireconomy.media/ff_calendar_thisweek.json
+      - key: VAPID_PUBLIC_KEY
+        sync: false
+      - key: VAPID_PRIVATE_KEY
+        sync: false
+      - key: VAPID_SUBJECT
+        value: mailto:admin@quantumsignal.app

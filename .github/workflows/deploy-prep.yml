@@ -1,0 +1,30 @@
+name: deploy-prep
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [ main, master ]
+    paths:
+      - 'backend/**'
+      - 'src/**'
+      - 'public/**'
+      - 'capacitor.config.ts'
+      - 'docker-compose.backend.yml'
+
+jobs:
+  package:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+      - run: npm ci
+      - run: npm run build
+      - run: npx prisma generate --schema=backend/prisma/schema.prisma
+      - run: docker build -f backend/Dockerfile -t quantum-signal-api:ci .
+      - uses: actions/upload-artifact@v4
+        with:
+          name: frontend-dist
+          path: dist

@@ -1,0 +1,51 @@
+{
+  "name": "Quantum Signal",
+  "short_name": "Quantum",
+  "description": "Sinyal trading AI live, data market real-time, dan kalender ekonomi Forex Factory.",
+  "start_url": "/#/app",
+  "display": "standalone",
+  "display_override": ["window-controls-overlay", "standalone", "minimal-ui"],
+  "background_color": "#0A0A0F",
+  "theme_color": "#0A0A0F",
+  "lang": "id-ID",
+  "orientation": "portrait",
+  "scope": "/",
+  "categories": ["finance", "business", "productivity"],
+  "icons": [
+    {
+      "src": "/icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Sinyal Live",
+      "short_name": "Sinyal",
+      "description": "Buka sinyal trading live",
+      "url": "/#/app/signals",
+      "icons": [{ "src": "/icons/icon-192.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "Pasar",
+      "short_name": "Pasar",
+      "description": "Buka market overview",
+      "url": "/#/app/markets",
+      "icons": [{ "src": "/icons/icon-192.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "Berita",
+      "short_name": "Berita",
+      "description": "Buka kalender ekonomi",
+      "url": "/#/app/news",
+      "icons": [{ "src": "/icons/icon-192.png", "sizes": "192x192" }]
+    }
+  ]
+}
