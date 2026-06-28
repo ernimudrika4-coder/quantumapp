@@ -2,6 +2,7 @@ import type { FastifyPluginAsync } from 'fastify';
 import { z } from 'zod';
 import { DEFAULT_SYMBOLS } from '../../config/constants';
 import { getQuote, getQuotes } from './service';
+import { getMarketDetail } from './detail-service';
 import { ok, fail } from '../../utils/http';
 
 const SymbolSchema = z.object({ symbol: z.string().min(3) });

@@ -18,7 +18,7 @@ export async function buildApp() {
   await app.register(authPlugin);
   await app.register(planPlugin);
 
-  app.setErrorHandler((error, _req, reply) => {
+  app.setErrorHandler((error: any, _req, reply) => {
     app.log.error(error);
     reply.status(500).send(fail(error.message || 'Internal server error', 'INTERNAL_ERROR'));
   });

@@ -37,7 +37,7 @@ export async function startWorkers() {
       }, { removeOnComplete: 50, removeOnFail: 50 });
     }
     return result;
-  }, { connection: redis });
+  }, { connection: redis as any });
 
   notifWorker = new Worker('notification-engine', async (job) => {
     const data = job.data as { userId?: string; title: string; body: string; route?: string; symbol?: string; followId?: string };
@@ -73,7 +73,7 @@ export async function startWorkers() {
     }
 
     return { stored: true, pushed };
-  }, { connection: redis });
+  }, { connection: redis as any });
 
   evaluatorWorker.on('completed', (job, result) => logger.info({ job: job.name, result }, 'Signal evaluator completed'));
   evaluatorWorker.on('failed', (job, err) => logger.error({ job: job?.name, err }, 'Signal evaluator failed'));

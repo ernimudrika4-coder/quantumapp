@@ -19,7 +19,7 @@ export async function comparePassword(password: string, hash: string) {
 
 export function signAccessToken(payload: JwtUserPayload) {
   return jwt.sign(payload, env.JWT_SECRET, {
-    expiresIn: env.JWT_EXPIRES_IN,
+    expiresIn: env.JWT_EXPIRES_IN as any,
   });
 }
 

@@ -1,8 +1,9 @@
 import fs from 'node:fs';
 import path from 'node:path';
 
-const envPath = path.resolve('backend/.env');
-const examplePath = path.resolve('backend/.env.example');
+const isBackendCwd = path.basename(process.cwd()) === 'backend';
+const envPath = isBackendCwd ? path.resolve('.env') : path.resolve('backend/.env');
+const examplePath = isBackendCwd ? path.resolve('.env.example') : path.resolve('backend/.env.example');
 
 if (!fs.existsSync(envPath)) {
   console.error('❌ backend/.env tidak ditemukan');

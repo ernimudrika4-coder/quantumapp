@@ -58,5 +58,5 @@ export function normalizeTimeSeries(raw: any, symbol: string, timeframe: string)
       close: Number(v.close),
       volume: v.volume ? Number(v.volume) : undefined,
     }))
-    .sort((a, b) => a.timestamp - b.timestamp);
+    .sort((a: any, b: any) => a.timestamp - b.timestamp);
 }

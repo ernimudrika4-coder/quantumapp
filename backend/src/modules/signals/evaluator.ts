@@ -1,5 +1,5 @@
 import { getQuotes } from '../markets/service';
-import { listActiveSignalFollows, updateFollowStatus, getFollowById } from './repository';
+import { listActiveSignalFollows, updateFollowStatus } from './repository';
 
 export interface EvaluationResult {
   updated: number;

@@ -13,7 +13,7 @@ const watchlistRoutes: FastifyPluginAsync = async (app) => {
   app.get('/', { preHandler: app.authenticate }, async (req) => {
     const userId = req.user!.sub;
     const items = await listUserWatchlist(userId);
-    if (items) return ok(items.map((i) => i.symbol));
+    if (items) return ok(items.map((i: any) => i.symbol));
     return ok(memoryStore.get(userId) ?? []);
   });
 
@@ -27,7 +27,7 @@ const watchlistRoutes: FastifyPluginAsync = async (app) => {
 
     const existing = await listUserWatchlist(userId);
     const currentCount = existing ? existing.length : (memoryStore.get(userId) ?? []).length;
-    if (currentCount >= limit && !(existing?.some((i) => i.symbol === symbol))) {
+    if (currentCount >= limit && !(existing?.some((i: any) => i.symbol === symbol))) {
       return reply.status(403).send(fail(`Batas watchlist plan ${plan.toUpperCase()} adalah ${limit} pair`, 'PLAN_LIMIT_REACHED', { limit, plan }));
     }
 
